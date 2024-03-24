@@ -1,6 +1,6 @@
 <?php
 
-const APP_PATH = "/indy-lab";
+const APP_PATH = "/indy-labs";
 const PAGE_PATH = __ROOT__ . "/pages";
 const INC_PATH = __ROOT__ . "/inc";
 const CONTROLLER_PATH = __ROOT__ . "/controllers";
