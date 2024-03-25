@@ -1,14 +1,14 @@
 <?php
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
-const DB_SERVER = 'localhost';
-const DB_USERNAME = 'root';
-const DB_PASSWORD = '';
-const DB_NAME = 'indy-lab';
+$dbServer = $_ENV['DB_SERVER'];
+$dbUsername = $_ENV['DB_USERNAME'];
+$dbPass = $_ENV['DB_PASSWORD'];
+$dbName = $_ENV['DB_NAME'];
 
 try {
     /* Attempt to connect to MySQL database */
-    $db = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+    $db = mysqli_connect($dbServer, $dbUsername, $dbPass, $dbName);
     if ($db === false) {
         header("Location: " . APP_PATH . "/offline");
         exit();

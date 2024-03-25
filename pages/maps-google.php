@@ -106,7 +106,7 @@
     <script src="assets/libs/prismjs/prism.js"></script>
 
     <!-- google maps api -->
-    <script src="https://maps.google.com/maps/api/js?key=AIzaSyCtSAR45TFgZjOs4nBFFZnII-6mMHLfSYI"></script>
+    <script src="https://maps.google.com/maps/api/js?key=<?= $_ENV['GG_MAP_KEY'] ?>"></script>
 
     <!-- gmaps plugins -->
     <script src="assets/libs/gmaps/gmaps.min.js"></script>
