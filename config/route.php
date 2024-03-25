@@ -3,6 +3,7 @@
 use App\Controllers\CalendarController;
 use App\Controllers\CommonController;
 use App\Controllers\DashboardController;
+use App\Controllers\DatabaseController;
 use App\Controllers\JobSkillsController;
 use App\Controllers\NoteController;
 use App\Controllers\ProjectController;
@@ -37,6 +38,9 @@ $router->get('/job-skills/new', [JobSkillsController::class, 'addNew']);
 // $router->put('/user/{id}', [UserController::class, 'update']);
 // $router->patch('/user/{id}', [UserController::class, 'partialUpdate']);
 // $router->delete('/user/{id}', [UserController::class, 'destroy']);
+
+
+$router->get('/database', [DatabaseController::class, 'index']);
 
 // Dispatch the request
 $router->dispatch();

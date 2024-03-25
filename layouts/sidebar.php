@@ -73,6 +73,7 @@ function renderMenu($title, $routes)
             <div id="two-column-menu"></div>
             <ul class="navbar-nav" id="navbar-nav">
                 <?php renderMenu('Menu', $menuRouters); ?>
+                <?php renderMenu('System', $systemRouters); ?>
             </ul>
         </div>
     </div>

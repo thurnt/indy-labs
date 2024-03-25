@@ -9,3 +9,4 @@ require_once("TodoController.php");
 require_once("NoteController.php");
 require_once("TargetController.php");
 require_once("JobSkillsController.php");
+require_once("DatabaseController.php");
