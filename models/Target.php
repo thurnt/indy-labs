@@ -1,6 +1,6 @@
 <?php
 
-class ProjectModel extends TableCRUD
+class TargetModel extends TableCRUD
 {
     public function __construct()
     {
@@ -28,4 +28,3 @@ class ProjectModel extends TableCRUD
         $this->deleteTable();
     }
 }
-

@@ -6,6 +6,7 @@ const INC_PATH = __ROOT__ . "/inc";
 const CONTROLLER_PATH = __ROOT__ . "/controllers";
 const SERVICE_PATH = __ROOT__ . "/services";
 const CONSTANT_PATH = __ROOT__ . "/constants";
+const MODEL_PATH = __ROOT__ . "/models";
 
 require_once("db.php");
 

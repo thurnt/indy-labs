@@ -4,6 +4,12 @@ include 'layouts/main.php';
 
 require_once CONSTANT_PATH . "/databaseList.php";
 
+$array = array_map(function ($item) {
+    $database = new TableCRUD($item['name']);
+    $item['size'] = $database->calculateSize();
+    return $item;
+}, $dbList);
+
 function renderColor($idx)
 {
     $period = 4;
@@ -51,7 +57,7 @@ function renderColor($idx)
                     <?php includeFileWithVariables('layouts/page-title.php', array('pagetitle' => 'Database', 'title' => 'List')); ?>
 
                     <div class="row">
-                        <?php foreach ($dbList as $idx => $db) { ?>
+                        <?php foreach ($array as $idx => $db) { ?>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card card-animate">
                                     <div class="card-body">
@@ -60,14 +66,15 @@ function renderColor($idx)
                                                 <p class="text-uppercase fw-semibold text-muted mb-0"><?= $db['label'] ?></p>
                                             </div>
                                             <div class="flex-shrink-0">
-                                                <h5 class="text-success fs-14 mb-0">
-                                                    <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +29.08 %
-                                                </h5>
+                                                <form action="<?= home_url("database/refresh") ?>" method="post" class="mb-0">
+                                                    <input type="hidden" name="table_name" value="<?= $db['name'] ?>" />
+                                                    <button type="submit" class="btn btn-ghost-success py-0 px-1 btn-sm fs-14 mb-0"><i class="mdi mdi-database-sync-outline fs-15 align-center"></i><span class="fs-12 ms-1">Refresh</span></button>
+                                                </form>
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-end justify-content-between mt-4">
                                             <div>
-                                                <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="183.35">0</span>M</h4>
+                                                <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="<?= $db['size'] ?>">0</span>M</h4>
                                                 <a href="<?= home_url($db['url']) ?>" class="text-decoration-underline">See details</a>
                                             </div>
                                             <div class="avatar-sm flex-shrink-0">

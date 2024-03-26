@@ -3,12 +3,14 @@
 class TableCRUD
 {
     private $db;
+    private $db_name;
     private $table_name;
 
     public function __construct($table_name)
     {
         global $db;
         $this->db = $db;
+        $this->db_name = $_ENV['DB_NAME'];
         $this->table_name = $table_name;
     }
 
@@ -49,6 +51,28 @@ class TableCRUD
         return $this->db->query("DROP TABLE IF EXISTS " . $this->table_name);
     }
 
+    public function calculateSize()
+    {
+        $sql = "SELECT 
+            table_name AS `Table`,
+            round(((data_length + index_length) / 1024 / 1024), 2) `Size in MB`
+        FROM 
+            information_schema.tables 
+        WHERE 
+            table_schema = '" . $this->db_name . "' 
+            AND table_name = '" . $this->table_name . "'";
+
+        $result = $this->db->query($sql);
+
+        if ($result->num_rows > 0) {
+            // Output data of each row
+            while ($row = $result->fetch_assoc()) {
+                return $row["Size in MB"];
+            }
+        } else {
+            return 0;
+        }
+    }
 
     // Create a record
     public function create($data)

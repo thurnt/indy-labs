@@ -41,6 +41,7 @@ $router->get('/job-skills/new', [JobSkillsController::class, 'addNew']);
 
 
 $router->get('/database', [DatabaseController::class, 'index']);
+$router->post('/database/refresh', [DatabaseController::class, 'refresh']);
 
 // Dispatch the request
 $router->dispatch();
