@@ -10,12 +10,12 @@ try {
     /* Attempt to connect to MySQL database */
     $db = mysqli_connect($dbServer, $dbUsername, $dbPass, $dbName);
     if ($db === false) {
-        header("Location: " . APP_PATH . "/offline");
+        header("Location: " . APP_PATH . "/error");
         exit();
     }
 } catch (Throwable $th) {
-    if ($_GET['url'] != "offline") {
-        header("Location: " . APP_PATH . "/offline");
+    if ($_GET['url'] != "error") {
+        header("Location: " . APP_PATH . "/error");
         exit();
     }
 }

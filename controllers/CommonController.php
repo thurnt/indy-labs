@@ -8,8 +8,8 @@ class CommonController
     {
         include PAGE_PATH . '/' . "auth-404-alt.php";
     }
-    public function offline()
+    public function error()
     {
-        include PAGE_PATH . '/' . "auth-offline.php";
+        include PAGE_PATH . '/' . "auth-500.php";
     }
 }

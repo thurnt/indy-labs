@@ -16,7 +16,7 @@ $router = new Router();
 
 // Define routes
 $router->get('/', [DashboardController::class, 'index']);
-$router->get('/offline', [CommonController::class, 'offline']);
+$router->get('/error', [CommonController::class, 'error']);
 
 $router->get('/project', [ProjectController::class, 'index']);
 $router->get('/project/new', [ProjectController::class, 'addNew']);
