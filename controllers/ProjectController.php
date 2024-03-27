@@ -18,10 +18,21 @@ class ProjectController
         include PAGE_PATH . "/apps-projects-create.php";
     }
 
+    public function create()
+    {
+        $table = new TableCRUD("project");
+        $result = $table->create($this->extract($_POST));
+        if ($result) {
+            header("Location: " . APP_PATH . "/project");
+        } else {
+            header("Location: " . APP_PATH . "/project/new");
+        }
+    }
+
     public function extract($post)
     {
         $data = array();
-        $params = array("title", "summary", "description", "priority", "status", "deadline", "privacy", "category", "tags", "member_lead", "member_list");
+        $params = array("title", "summary", "description", "priority", "status", "deadline", "category", "tags");
         foreach ($post as $key => $value) {
             if (in_array($key, $params)) {
                 $data[$key] = isset($value) ? $value : null;
@@ -33,14 +44,22 @@ class ProjectController
         return $data;
     }
 
-    public function create()
+    public function edit($id)
     {
         $table = new TableCRUD("project");
-        $result = $table->create($this->extract($_POST));
+        $cond = "`id` = " . $id;
+        $data = $table->read($cond);
+        get_template_part("/apps-projects-create.php", array('data' => $data[0]));
+    }
+
+    public function update($id)
+    {
+        $table = new TableCRUD("project");
+        $result = $table->update($id, $this->extract($_POST));
         if ($result) {
-            header("Location: " . APP_PATH . "/project");
+            header("Location: " . APP_PATH . "/project/edit/" . $id);
         } else {
-            header("Location: " . APP_PATH . "/project/new");
+            header("Location: " . APP_PATH . "/project/edit/" . $id);
         }
     }
 }

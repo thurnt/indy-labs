@@ -14,7 +14,6 @@ if (ckeditorClassic) {
         .then(function (editor) {
             editor.ui.view.editable.element.style.height = '200px';
             editor.model.document.on('change:data', () => {
-                console.log(editor.getData())
                 document.querySelector('#project-description').value = editor.getData();
             });
         })

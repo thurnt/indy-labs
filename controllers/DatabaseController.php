@@ -15,6 +15,7 @@ class DatabaseController
     {
         if (isset($_POST['table_name'])) {
             $table = checkDBModel($_POST['table_name']);
+            $table->down();
             $table->up();
             header("Location: " . APP_PATH . "/database");
         }

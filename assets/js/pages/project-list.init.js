@@ -26,3 +26,27 @@ if (removeProduct) {
         });
     });
 }
+
+if (document.getElementsByClassName("btn-refresh")) {
+    [...(document.getElementsByClassName('btn-refresh'))].forEach(function (item, idx) {
+        var form = item.closest('form');
+        item.addEventListener("click", function () {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "All records will be removed from this table.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonClass: 'btn btn-primary w-xs me-2 mt-2',
+                cancelButtonClass: 'btn btn-light w-xs mt-2',
+                confirmButtonText: "Confirm",
+                buttonsStyling: false,
+                showCloseButton: true
+            }).then(function (result) {
+                if (result.value) {
+                    console.log("request")
+                    form.submit()
+                }
+            });
+        })
+    });
+}

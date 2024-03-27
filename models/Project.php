@@ -11,16 +11,15 @@ class ProjectModel extends TableCRUD
     {
         // Define the table structure
         $columns = array(
+            'id' => 'INT AUTO_INCREMENT PRIMARY KEY',
             'created_at' => 'DATETIME',
             'updated_at' => 'DATETIME',
-            'id' => 'INT AUTO_INCREMENT PRIMARY KEY',
             'title' => 'VARCHAR(255)',
             'summary' => 'TEXT NULL',
             'description' => 'TEXT NULL',
-            'priority' => 'ENUM("Low", "Medium", "High")',
-            'status' => 'ENUM("ToDo", "InProgress", "Done")',
+            'priority' => 'VARCHAR(50)',
+            'status' => 'VARCHAR(50)',
             'deadline' => 'DATE NULL',
-            'privacy' => 'ENUM("Public", "Private")',
             'category' => 'VARCHAR(100) NULL',
             'tags' => 'VARCHAR(100) NULL',
         );

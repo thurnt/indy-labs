@@ -37,11 +37,34 @@ class Router
         $url = $this->getUrl();
         $route = $url ? '/' . $url : "/";
 
-        if (isset($this->routes[$method][$route])) {
-            $action = $this->routes[$method][$route];
-            $this->callAction($action);
-        } else {
-            include PAGE_PATH . "/auth-404-alt.php";
+        $urlParts = explode('/', trim($route, '/'));
+        foreach ($this->routes[$method] as $routePattern => $action) {
+            // Step 3: Check if the route pattern matches the URL path
+            $routeParts = explode('/', trim($routePattern, '/'));
+
+            // If the number of parts in both arrays is not the same, they don't match
+            if (count($urlParts) !== count($routeParts)) {
+                continue;
+            }
+
+            $match = true;
+            $params = [];
+
+            foreach ($routeParts as $key => $part) {
+                if ($part === ':id') {
+                    $params[] = $urlParts[$key];
+                } elseif ($part !== $urlParts[$key]) {
+                    // If any part doesn't match, set match to false and break
+                    $match = false;
+                    break;
+                }
+            }
+
+            if ($match) {
+                array_push($action, ...$params);
+                $this->callAction($action);
+                exit; // Exit the loop since a match is found
+            }
         }
     }
 
@@ -57,8 +80,8 @@ class Router
 
     protected function callAction($action)
     {
-        [$controller, $method] = $action;
+        [$controller, $method, $params] = $action;
         $controllerInstance = new $controller();
-        $controllerInstance->$method();
+        $controllerInstance->$method($params);
     }
 }

@@ -30,10 +30,7 @@ function renderColor($idx)
 
     <?php includeFileWithVariables('layouts/title-meta.php', array('title' => 'Database')); ?>
 
-    <!-- plugin css -->
-    <link href="assets/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
-
-    <link href="assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="<?= assets_url("libs/sweetalert2/sweetalert2.min.css") ?>" rel="stylesheet" type="text/css"/>
 
     <?php include 'layouts/head-css.php'; ?>
 
@@ -41,90 +38,83 @@ function renderColor($idx)
 
 <body>
 
-    <!-- Begin page -->
-    <div id="layout-wrapper">
+<!-- Begin page -->
+<div id="layout-wrapper">
 
-        <?php include 'layouts/menu.php'; ?>
+    <?php include 'layouts/menu.php'; ?>
 
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
-        <div class="main-content">
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
 
-            <div class="page-content">
-                <div class="container-fluid">
+        <div class="page-content">
+            <div class="container-fluid">
 
-                    <?php includeFileWithVariables('layouts/page-title.php', array('pagetitle' => 'Database', 'title' => 'List')); ?>
+                <?php includeFileWithVariables('layouts/page-title.php', array('pagetitle' => 'Database', 'title' => 'List')); ?>
 
-                    <div class="row">
-                        <?php foreach ($array as $idx => $db) { ?>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card card-animate">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-grow-1">
-                                                <p class="text-uppercase fw-semibold text-muted mb-0"><?= $db['label'] ?></p>
-                                            </div>
-                                            <div class="flex-shrink-0">
-                                                <form action="<?= home_url("database/refresh") ?>" method="post" class="mb-0">
-                                                    <input type="hidden" name="table_name" value="<?= $db['name'] ?>" />
-                                                    <button type="submit" class="btn btn-ghost-success py-0 px-1 btn-sm fs-14 mb-0"><i class="mdi mdi-database-sync-outline fs-15 align-center"></i><span class="fs-12 ms-1">Refresh</span></button>
-                                                </form>
-                                            </div>
+                <div class="row">
+                    <?php foreach ($array as $idx => $db) { ?>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card card-animate">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <p class="text-uppercase fw-semibold text-muted mb-0"><?= $db['label'] ?></p>
                                         </div>
-                                        <div class="d-flex align-items-end justify-content-between mt-4">
-                                            <div>
-                                                <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="<?= $db['size'] ?>">0</span>M</h4>
-                                                <a href="<?= home_url($db['url']) ?>" class="text-decoration-underline">See details</a>
-                                            </div>
-                                            <div class="avatar-sm flex-shrink-0">
+                                        <div class="flex-shrink-0">
+                                            <form action="<?= home_url("database/refresh") ?>" method="post"
+                                                  class="mb-0">
+                                                <input type="hidden" name="table_name" value="<?= $db['name'] ?>"/>
+                                                <a href="#"
+                                                   class="btn btn-ghost-success py-0 px-1 btn-sm fs-14 mb-0 btn-refresh"><i
+                                                            class="mdi mdi-database-sync-outline fs-15 align-center"></i><span
+                                                            class="fs-12 ms-1">Refresh</span></a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-end justify-content-between mt-4">
+                                        <div>
+                                            <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value"
+                                                                                                  data-target="<?= $db['size'] ?>">0</span>M
+                                            </h4>
+                                            <a href="<?= home_url($db['url']) ?>" class="text-decoration-underline">See
+                                                details</a>
+                                        </div>
+                                        <div class="avatar-sm flex-shrink-0">
                                                 <span class="avatar-title bg-<?= renderColor($idx) ?>-subtle rounded fs-3">
                                                     <i class="<?= $db['icon'] ?> text-<?= renderColor($idx) ?>"></i>
                                                 </span>
-                                            </div>
                                         </div>
-                                    </div><!-- end card body -->
-                                </div> <!-- end card-->
-                            </div> <!-- end col-->
-                        <?php } ?>
-                    </div> <!-- end row-->
-
-                </div>
-                <!-- container-fluid -->
+                                    </div>
+                                </div><!-- end card body -->
+                            </div> <!-- end card-->
+                        </div> <!-- end col-->
+                    <?php } ?>
+                </div> <!-- end row-->
             </div>
-            <!-- End Page-content -->
-
-            <?php include 'layouts/footer.php'; ?>
+            <!-- container-fluid -->
         </div>
-        <!-- end main content-->
+        <!-- End Page-content -->
 
+        <?php include 'layouts/footer.php'; ?>
     </div>
-    <!-- END layout-wrapper -->
+    <!-- end main content-->
 
-    <?php include 'layouts/customizer.php'; ?>
+</div>
+<!-- END layout-wrapper -->
 
-    <?php include 'layouts/vendor-scripts.php'; ?>
+<?php include 'layouts/customizer.php'; ?>
 
-    <!-- apexcharts -->
-    <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+<?php include 'layouts/vendor-scripts.php'; ?>
 
-    <!-- Vector map-->
-    <script src="assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
-    <script src="assets/libs/jsvectormap/maps/world-merc.js"></script>
-    <script src="assets/libs/jsvectormap/maps/us-merc-en.js"></script>
+<!-- Sweet Alerts js -->
+<script src="<?= assets_url("libs/sweetalert2/sweetalert2.min.js") ?>"></script>
 
-    <!-- Swiper Js -->
-    <script src="assets/libs/swiper/swiper-bundle.min.js"></script>
+<script src="<?= assets_url("js/pages/project-list.init.js") ?>"></script>
 
-    <script src="assets/js/pages/form-input-spin.init.js"></script>
-
-    <script src="assets/libs/card/card.js"></script>
-
-    <!-- Widget init -->
-    <script src="assets/js/pages/widgets.init.js"></script>
-
-    <!-- App js -->
-    <script src="assets/js/app.js"></script>
+<!-- App js -->
+<script src="<?= assets_url("js/app.js") ?>"></script>
 </body>
 
 </html>

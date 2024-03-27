@@ -29,3 +29,21 @@ function get_template_part($filePath, $variables = null)
         include PAGE_PATH . '/' . "auth-404-alt.php";
     }
 }
+
+function renderTimeAgo($updatedTime)
+{
+    $now = time();
+    $updated = strtotime($updatedTime);
+    $timeDiff = $now - $updated;
+    $minutesDiff = floor($timeDiff / 60);
+    $hoursDiff = floor($minutesDiff / 60);
+
+    if ($hoursDiff < 1) {
+        return $minutesDiff . ($minutesDiff === 1 ? ' minute ago' : ' minutes ago');
+    } elseif ($hoursDiff < 24) {
+        return $hoursDiff . ($hoursDiff === 1 ? ' hour ago' : ' hours ago');
+    } else {
+        // Format the date if it's greater than a day
+        return date('M j, Y', $updated);
+    }
+}

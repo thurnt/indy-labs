@@ -105,6 +105,7 @@ class TableCRUD
         if ($condition !== null) {
             $sql .= " WHERE " . $condition;
         }
+        $sql .= " ORDER BY `created_at` DESC";
 
         $result = $this->db->query($sql);
 
@@ -122,7 +123,40 @@ class TableCRUD
     // Update a record
     public function update($id, $data)
     {
-        // Implement your logic to update a record in the table
+        // Construct the SET part of the SQL query
+        $set = [];
+        foreach ($data as $key => $value) {
+            // Escape the value to prevent SQL injection
+            $value = $this->db->real_escape_string($value);
+            // Append the key-value pair to the SET array
+            $set[] = "$key = '$value'";
+        }
+        // Combine all elements of the SET array into a comma-separated string
+        $setString = implode(', ', $set);
+
+        // Construct the SQL query
+        $sql = "UPDATE " . $this->table_name . " SET $setString WHERE id = ?";
+
+        // Prepare the statement
+        $stmt = $this->db->prepare($sql);
+
+        if ($stmt) {
+            // Bind the parameter and execute the statement
+            $stmt->bind_param('i', $id);
+            $stmt->execute();
+
+            // Check if the update was successful
+            if ($stmt->affected_rows > 0) {
+                $stmt->close();
+                return true; // Update successful
+            } else {
+                $stmt->close();
+                return false; // Update failed
+            }
+        } else {
+            // Error in preparing the statement
+            return false;
+        }
     }
 
     // Delete a record

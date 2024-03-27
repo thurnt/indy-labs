@@ -21,6 +21,8 @@ $router->get('/error', [CommonController::class, 'error']);
 $router->get('/project', [ProjectController::class, 'index']);
 $router->get('/project/new', [ProjectController::class, 'addNew']);
 $router->post('/project/new', [ProjectController::class, 'create']);
+$router->get('/project/edit/:id', [ProjectController::class, 'edit']);
+$router->post('/project/edit/:id', [ProjectController::class, 'update']);
 $router->get('/task', [TaskController::class, 'index']);
 $router->get('/task/new', [TaskController::class, 'addNew']);
 $router->get('/calendar', [CalendarController::class, 'index']);
