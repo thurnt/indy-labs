@@ -17,14 +17,14 @@ function assets_url($path): string
 
 function get_template_part($filePath, $variables = null)
 {
-    if (file_exists($filePath)) {
+    if (file_exists(PAGE_PATH . '/' . $filePath)) {
         // Extract the variables to a local namespace
         if ($variables) {
             extract($variables);
         }
 
         // Include the template file
-        include $filePath;
+        include PAGE_PATH . '/' . $filePath;
     } else {
         include PAGE_PATH . '/' . "auth-404-alt.php";
     }

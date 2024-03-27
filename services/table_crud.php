@@ -77,13 +77,46 @@ class TableCRUD
     // Create a record
     public function create($data)
     {
-        // Implement your logic to insert data into the table
+        if (!isset($data['created_at'])) {
+            $data['created_at'] = date('Y-m-d H:i:s');
+        }
+        if (!isset($data['updated_at'])) {
+            $data['updated_at'] = date('Y-m-d H:i:s');
+        }
+        $data['created_at'] = date('Y-m-d H:i:s', strtotime($data['created_at']));
+        $data['updated_at'] = date('Y-m-d H:i:s', strtotime($data['updated_at']));
+
+        $keys = array_keys($data);
+        $values = array_map(array($this->db, 'real_escape_string'), array_values($data));
+        $sql = "INSERT INTO " . $this->table_name . " (" . implode(',', $keys) . ") VALUES ('" . implode("','", $values) . "')";
+
+        if ($this->db->query($sql) === TRUE) {
+            return true; // Insert successful
+        } else {
+            return false; // Insert failed
+        }
     }
 
     // Read records
     public function read($condition = null)
     {
-        // Implement your logic to fetch data from the table
+        $sql = "SELECT * FROM " . $this->table_name;
+
+        if ($condition !== null) {
+            $sql .= " WHERE " . $condition;
+        }
+
+        $result = $this->db->query($sql);
+
+        if ($result->num_rows > 0) {
+            $rows = [];
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+            return $rows;
+        } else {
+            return []; // No records found
+        }
     }
 
     // Update a record

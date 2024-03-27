@@ -8,7 +8,7 @@ class DatabaseController
 {
     public function index()
     {
-        get_template_part(PAGE_PATH . "/database-list.php");
+        get_template_part("database-list.php");
     }
 
     public function refresh()
