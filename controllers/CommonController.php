@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 class CommonController
 {
-    public function notfound()
+    public function notFound()
     {
         include PAGE_PATH . '/' . "auth-404-alt.php";
     }

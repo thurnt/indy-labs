@@ -17,12 +17,15 @@ $router = new Router();
 // Define routes
 $router->get('/', [DashboardController::class, 'index']);
 $router->get('/error', [CommonController::class, 'error']);
+$router->get('/not-found', [CommonController::class, 'notFound']);
 
 $router->get('/project', [ProjectController::class, 'index']);
 $router->get('/project/new', [ProjectController::class, 'addNew']);
 $router->post('/project/new', [ProjectController::class, 'create']);
 $router->get('/project/edit/:id', [ProjectController::class, 'edit']);
 $router->post('/project/edit/:id', [ProjectController::class, 'update']);
+$router->get('/project/view/:id', [ProjectController::class, 'view']);
+
 $router->get('/task', [TaskController::class, 'index']);
 $router->get('/task/new', [TaskController::class, 'addNew']);
 $router->get('/calendar', [CalendarController::class, 'index']);

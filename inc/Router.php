@@ -61,8 +61,7 @@ class Router
             }
 
             if ($match) {
-                array_push($action, ...$params);
-                $this->callAction($action);
+                $this->callAction($action, ...$params);
                 exit; // Exit the loop since a match is found
             }
         }
@@ -78,9 +77,9 @@ class Router
         }
     }
 
-    protected function callAction($action)
+    protected function callAction($action, $params = null)
     {
-        [$controller, $method, $params] = $action;
+        [$controller, $method] = $action;
         $controllerInstance = new $controller();
         $controllerInstance->$method($params);
     }

@@ -62,4 +62,16 @@ class ProjectController
             header("Location: " . APP_PATH . "/project/edit/" . $id);
         }
     }
+
+    public function view($id)
+    {
+        $table = new TableCRUD("project");
+        $cond = "`id` = " . $id;
+        $data = $table->read($cond);
+        if (count($data) > 0) {
+            get_template_part("/apps-projects-overview.php", array('data' => $data[0]));
+        } else {
+            get_template_part("/auth-404-alt");
+        }
+    }
 }
