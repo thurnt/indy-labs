@@ -56,10 +56,13 @@ class ProjectController
     {
         $table = new TableCRUD("project");
         $result = $table->update($id, $this->extract($_POST));
+        session_start();
         if ($result) {
-            header("Location: " . APP_PATH . "/project/edit/" . $id);
+            $_SESSION['success_notice'] = 'Your post was updated successfully.';
+            header("Location: " . APP_PATH . "/project/edit/" . $id . "?success=1");
         } else {
-            header("Location: " . APP_PATH . "/project/edit/" . $id);
+            $_SESSION['error_message'] = 'An error occurred while updating your post. Please try again.';
+            header("Location: " . APP_PATH . "/project/edit/" . $id . "?error=1");
         }
     }
 

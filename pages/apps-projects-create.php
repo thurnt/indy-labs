@@ -33,6 +33,28 @@ require_once(CONSTANT_PATH . '/common.php');
 
                     <?php includeFileWithVariables('layouts/page-title.php', array('pagetitle' => 'Projects', 'title' => (isset($data['id']) ? 'Edit' : 'Create') . ' Project')); ?>
 
+                    <?php
+                    if (isset($_GET['success']) && $_GET['success'] == 1) {
+                        if (isset($_SESSION['success_notice'])) {
+                            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <span>' . $_SESSION['success_notice'] . '</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>';
+                            unset($_SESSION['success_notice']);
+                        }
+                    }
+
+                    if (isset($_GET['error']) && $_GET['error'] == 1) {
+                        if (isset($_SESSION['error_message'])) {
+                            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <span>' . $_SESSION['error_message'] . '</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>';
+                            unset($_SESSION['error_message']);
+                        }
+                    }
+                    ?>
+
                     <form action="<?= home_url(isset($data['id']) ? 'project/edit/' . $data['id'] : 'project/new') ?>" method="post">
                         <div class="row">
                             <div class="col-lg-8">
