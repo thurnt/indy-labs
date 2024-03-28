@@ -5,6 +5,8 @@
 
     <?php includeFileWithVariables('layouts/title-meta.php', array('title' => 'Project List')); ?>
 
+    <link href="<?= assets_url("libs/sweetalert2/sweetalert2.min.css") ?>" rel="stylesheet" type="text/css" />
+
     <?php include 'layouts/head-css.php'; ?>
 
 </head>
@@ -25,6 +27,28 @@
                 <div class="container-fluid">
 
                     <?php includeFileWithVariables('layouts/page-title.php', array('pagetitle' => 'Projects', 'title' => 'Project List')); ?>
+
+                    <?php
+                    if (isset($_GET['success']) && $_GET['success'] == 1) {
+                        if (isset($_SESSION['success_notice'])) {
+                            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <span>' . $_SESSION['success_notice'] . '</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>';
+                            unset($_SESSION['success_notice']);
+                        }
+                    }
+
+                    if (isset($_GET['error']) && $_GET['error'] == 1) {
+                        if (isset($_SESSION['error_message'])) {
+                            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <span>' . $_SESSION['error_message'] . '</span>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>';
+                            unset($_SESSION['error_message']);
+                        }
+                    }
+                    ?>
 
                     <div class="row g-4 mb-3">
                         <div class="col-sm-auto">
@@ -76,8 +100,9 @@
                                                                 <a class="dropdown-item" href="<?= home_url('project/edit/' . $item['id']) ?>"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                                     Edit</a>
                                                                 <div class="dropdown-divider"></div>
-                                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#removeProjectModal"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
-                                                                    Remove</a>
+                                                                <form action="<?= home_url("project/delete/" . $item['id']) ?>" method="post" class="mb-0">
+                                                                    <a href="#" class="dropdown-item btn-delete"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>Delete</a>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -192,6 +217,9 @@
     <?php include 'layouts/customizer.php'; ?>
 
     <?php include 'layouts/vendor-scripts.php'; ?>
+
+    <!-- Sweet Alerts js -->
+    <script src="<?= assets_url("libs/sweetalert2/sweetalert2.min.js") ?>"></script>
 
     <!-- project list init -->
     <script src="<?= assets_url("js/pages/project-list.init.js") ?>"></script>

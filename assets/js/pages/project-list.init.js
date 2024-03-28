@@ -43,10 +43,33 @@ if (document.getElementsByClassName("btn-refresh")) {
                 showCloseButton: true
             }).then(function (result) {
                 if (result.value) {
-                    console.log("request")
                     form.submit()
                 }
             });
         })
     });
 }
+
+if (document.getElementsByClassName("btn-delete")) {
+    [...(document.getElementsByClassName('btn-delete'))].forEach(function (item, idx) {
+        var form = item.closest('form');
+        item.addEventListener("click", function () {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "This project will be delete.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonClass: 'btn btn-primary w-xs me-2 mt-2',
+                cancelButtonClass: 'btn btn-light w-xs mt-2',
+                confirmButtonText: "Confirm",
+                buttonsStyling: false,
+                showCloseButton: true
+            }).then(function (result) {
+                if (result.value) {
+                    form.submit()
+                }
+            });
+        })
+    });
+}
+

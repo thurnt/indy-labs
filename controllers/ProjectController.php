@@ -77,4 +77,17 @@ class ProjectController
             get_template_part("/auth-404-alt");
         }
     }
+
+    public function delete($id)
+    {
+        $table = new TableCRUD("project");
+        $result = $table->delete($id);
+        session_start();
+        if ($result) {
+            header("Location: " . APP_PATH . "/project");
+        } else {
+            $_SESSION['error_message'] = 'An error occurred while deleting your post. Please try again.';
+            header("Location: " . APP_PATH . "/project?error=1");
+        }
+    }
 }

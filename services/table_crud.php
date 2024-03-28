@@ -162,6 +162,28 @@ class TableCRUD
     // Delete a record
     public function delete($id)
     {
-        // Implement your logic to delete a record from the table
+        // Construct the SQL query
+        $sql = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+
+        // Prepare the statement
+        $stmt = $this->db->prepare($sql);
+
+        if ($stmt) {
+            // Bind the parameter and execute the statement
+            $stmt->bind_param('i', $id);
+            $stmt->execute();
+
+            // Check if the deletion was successful
+            if ($stmt->affected_rows > 0) {
+                $stmt->close();
+                return true; // Deletion successful
+            } else {
+                $stmt->close();
+                return false; // Deletion failed
+            }
+        } else {
+            // Error in preparing the statement
+            return false;
+        }
     }
 }

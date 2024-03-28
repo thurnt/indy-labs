@@ -25,6 +25,7 @@ $router->post('/project/new', [ProjectController::class, 'create']);
 $router->get('/project/edit/:id', [ProjectController::class, 'edit']);
 $router->post('/project/edit/:id', [ProjectController::class, 'update']);
 $router->get('/project/view/:id', [ProjectController::class, 'view']);
+$router->post('/project/delete/:id', [ProjectController::class, 'delete']);
 
 $router->get('/task', [TaskController::class, 'index']);
 $router->get('/task/new', [TaskController::class, 'addNew']);
