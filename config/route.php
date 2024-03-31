@@ -29,6 +29,12 @@ $router->post('/project/delete/:id', [ProjectController::class, 'delete']);
 
 $router->get('/task', [TaskController::class, 'index']);
 $router->get('/task/new', [TaskController::class, 'addNew']);
+$router->post('/task/new', [TaskController::class, 'create']);
+$router->get('/task/edit/:id', [TaskController::class, 'edit']);
+$router->post('/task/edit/:id', [TaskController::class, 'update']);
+$router->get('/task/view/:id', [TaskController::class, 'view']);
+$router->post('/task/delete/:id', [TaskController::class, 'delete']);
+
 $router->get('/calendar', [CalendarController::class, 'index']);
 $router->get('/calendar/new', [CalendarController::class, 'addNew']);
 $router->get('/todo', [TodoController::class, 'index']);

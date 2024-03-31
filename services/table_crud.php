@@ -125,6 +125,7 @@ class TableCRUD
     {
         // Construct the SET part of the SQL query
         $set = [];
+        $data['updated_at'] = date('Y-m-d H:i:s');
         foreach ($data as $key => $value) {
             // Escape the value to prevent SQL injection
             $value = $this->db->real_escape_string($value);
